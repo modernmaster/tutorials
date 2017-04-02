@@ -14,7 +14,7 @@
     </parent>
 
     <properties>
-        <multiproject.basedir>${basedir}\..</multiproject.basedir>
+        <multiproject.basedir>${basedir}/..</multiproject.basedir>
     </properties>
 
 

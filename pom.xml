@@ -70,8 +70,8 @@
                         <id>validate</id>
                         <phase>validate</phase>
                         <configuration>
-                            <configLocation>${multiproject.basedir}\config\checkstyles.xml</configLocation>
-                            <suppressionsLocation>${multiproject.basedir}\config\suppressions.xml</suppressionsLocation>
+                            <configLocation>${multiproject.basedir}/config/checkstyles.xml</configLocation>
+                            <suppressionsLocation>${multiproject.basedir}/config/suppressions.xml</suppressionsLocation>
                             <encoding>${project.build.sourceEncoding}</encoding>
                             <consoleOutput>true</consoleOutput>
                             <failsOnError>true</failsOnError>
