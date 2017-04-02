@@ -2,13 +2,13 @@ package uk.co.jamesmcguigan.algorithms;
 
 public class Singleton {
 
-    private Singleton() { }
-
     private static Singleton mySingleton = null;
 
+    private Singleton() {
+    }
+
     public static Singleton getInstance() {
-        if(mySingleton==null)
-        {
+        if (mySingleton == null) {
             mySingleton = new Singleton();
             return mySingleton;
         }

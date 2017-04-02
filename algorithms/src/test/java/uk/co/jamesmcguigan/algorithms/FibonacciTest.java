@@ -12,19 +12,19 @@ public class FibonacciTest {
 
     @Test
     public void ShouldReturn21ForNEquals8() {
-        int result = Fibonacci.GetFibonacciRecursive(8);
+        int result = Fibonacci.calculateFibonacciRecursive(8);
         Assert.assertThat(result, equalTo(21));
     }
 
     @Test
     public void ShouldReturn21ForNEquals8UsingIteration() {
-        int result = Fibonacci.GetFibonacciIterative(8);
+        int result = Fibonacci.calculateFibonacciIterative(8);
         Assert.assertThat(result, equalTo(21));
     }
 
     @Test
     public void ShouldReturn21ForNEquals8UsingMemorization() {
-        int result = Fibonacci.GetFibonacciMemorization(8);
+        int result = Fibonacci.calculateFibonacciMemorization(8);
         Assert.assertThat(result, equalTo(21));
     }
 }

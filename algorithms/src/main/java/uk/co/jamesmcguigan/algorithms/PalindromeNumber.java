@@ -1,14 +1,17 @@
 package uk.co.jamesmcguigan.algorithms;
 
 public class PalindromeNumber {
-    public boolean isPalindrome(int x) {
-        int n = x;
+
+    public static final int TEN = 10;
+
+    public boolean isPalindrome(final int number) {
+        int tmpNumber = number;
+        int n = tmpNumber;
         int rev = 0;
-        while (x > 0)
-        {
-            int dig = x % 10;
-            rev = rev * 10 + dig;
-            x = x / 10;
+        while (tmpNumber > 0) {
+            int dig = tmpNumber % TEN;
+            rev = rev * TEN + dig;
+            tmpNumber = tmpNumber / TEN;
         }
 
         return n == rev;

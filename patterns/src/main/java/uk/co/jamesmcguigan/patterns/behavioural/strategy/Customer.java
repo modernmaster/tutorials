@@ -8,12 +8,12 @@ public class Customer {
     private List<Double> drinks;
     private Billing strategy;
 
-    public Customer(Billing strategy) {
+    public Customer(final Billing strategy) {
         this.drinks = new ArrayList<Double>();
         this.strategy = strategy;
     }
 
-    public void add(double price, int quantity) {
+    public void add(final double price, final int quantity) {
         drinks.add(strategy.getActPrice(price * quantity));
     }
 
@@ -28,7 +28,7 @@ public class Customer {
     }
 
     // Set Strategy
-    public void setStrategy(Billing strategy) {
+    public void setStrategy(final Billing strategy) {
         this.strategy = strategy;
     }
 }

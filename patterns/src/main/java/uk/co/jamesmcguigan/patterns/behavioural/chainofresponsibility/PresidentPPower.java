@@ -1,9 +1,9 @@
 package uk.co.jamesmcguigan.patterns.behavioural.chainofresponsibility;
 
 public class PresidentPPower extends PurchasePower {
-    private final double ALLOWABLE = 60 * BASE;
+    private static final double ALLOWABLE = 60 * BASE;
 
-    public void processRequest(PurchaseRequest request) {
+    public void processRequest(final PurchaseRequest request) {
         if (request.getAmount() < ALLOWABLE) {
             System.out.println("President will approve $" + request.getAmount());
         } else {

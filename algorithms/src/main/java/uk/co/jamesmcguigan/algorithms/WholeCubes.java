@@ -1,13 +1,15 @@
 package uk.co.jamesmcguigan.algorithms;
 
 public class WholeCubes {
-    public int whole_cubes_count(int a, int b) {
+    public int wholeCubesCount(final int a, final int b) {
         final int inclusive = 1;
-        if(a<=b) {
+        if (a <= b) {
             int cubeRootA = (int) Math.cbrt(a);
             int cubeRootB = (int) Math.cbrt(b);
             int result = cubeRootB - cubeRootA;
-            return result > 0 ? result + inclusive: 0;
+            if (result > 0) {
+                return result + inclusive;
+            }
         }
         return 0;
     }

@@ -6,7 +6,7 @@ import java.util.List;
 public class Switch {
     private List<Command> history = new ArrayList<Command>();
 
-    public void storeAndExecute(Command cmd) {
+    public void storeAndExecute(final Command cmd) {
         this.history.add(cmd); // optional
         cmd.execute();
     }

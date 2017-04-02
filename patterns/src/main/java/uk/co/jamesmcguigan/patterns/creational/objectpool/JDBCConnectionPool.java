@@ -8,7 +8,7 @@ public class JDBCConnectionPool extends ObjectPool<Connection> {
 
     private String dsn, usr, pwd;
 
-    public JDBCConnectionPool(String driver, String dsn, String usr, String pwd) {
+    public JDBCConnectionPool(final String driver, final String dsn, final String usr, final String pwd) {
         super();
         try {
             Class.forName(driver).newInstance();
@@ -31,7 +31,7 @@ public class JDBCConnectionPool extends ObjectPool<Connection> {
     }
 
     @Override
-    public void expire(Connection o) {
+    public void expire(final Connection o) {
         try {
             ((Connection) o).close();
         } catch (SQLException e) {
@@ -40,7 +40,7 @@ public class JDBCConnectionPool extends ObjectPool<Connection> {
     }
 
     @Override
-    public boolean validate(Connection o) {
+    public boolean validate(final Connection o) {
         try {
             return (!((Connection) o).isClosed());
         } catch (SQLException e) {

@@ -7,9 +7,9 @@ public final class MainModule {
 
     private static MainModule singleton = null;
 
-    public InputStream input = null;
-    public PrintStream output = null;
-    public PrintStream error = null;
+    private InputStream input = null;
+    private PrintStream output = null;
+    private PrintStream error = null;
 
     public MainModule() {
         // does nothing on purpose !!!
@@ -40,15 +40,15 @@ public final class MainModule {
         System.out.println();
     }
 
-    public void printString(String value) {
+    public void printString(final String value) {
         System.out.print(value);
     }
 
-    public void printInteger(int value) {
+    public void printInteger(final int value) {
         System.out.print(value);
     }
 
-    public void printBoolean(boolean value) {
+    public void printBoolean(final boolean value) {
         System.out.print(value);
     }
 
@@ -56,15 +56,15 @@ public final class MainModule {
         // to-do: ...
     }
 
-    public void scanString(String value) {
+    public void scanString(final String value) {
         // to-do: ...
     }
 
-    public void scanInteger(int value) {
+    public void scanInteger(final int value) {
         // to-do: ...
     }
 
-    public void scanBoolean(boolean value) {
+    public void scanBoolean(final boolean value) {
         // to-do: ...
     }
 

@@ -7,13 +7,30 @@ import java.util.NoSuchElementException;
 public class ClassWithData {
     private Hashtable ht = new Hashtable();
 
+    public void add(final int in) {
+        ht.put(new Integer(in), "null");
+    }
+
+    public boolean isMember(final int i) {
+        return ht.containsKey(new Integer(i));
+    }
+
+    public Hashtable getHashtable() {
+        return ht;
+    }
+
+    // 2. Add a createIterator() member to the collection class
+    public Iterator createIterator() {
+        return new Iterator(this);
+    }
+
     // 1. Design an internal "iterator" class for the "collection" class
     public static class Iterator {
         private ClassWithData set;
         private Enumeration e;
         private Integer current;
 
-        public Iterator(ClassWithData in) {
+        public Iterator(final ClassWithData in) {
             set = in;
         }
 
@@ -37,22 +54,5 @@ public class ClassWithData {
                 current = null;
             }
         }
-    }
-
-    public void add(int in) {
-        ht.put(new Integer(in), "null");
-    }
-
-    public boolean isMember(int i) {
-        return ht.containsKey(new Integer(i));
-    }
-
-    public Hashtable getHashtable() {
-        return ht;
-    }
-
-    // 2. Add a createIterator() member to the collection class
-    public Iterator createIterator() {
-        return new Iterator(this);
     }
 }

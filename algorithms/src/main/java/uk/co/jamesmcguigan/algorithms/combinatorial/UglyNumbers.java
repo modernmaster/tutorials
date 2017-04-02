@@ -1,34 +1,51 @@
-package Combinatorial;
+package uk.co.jamesmcguigan.algorithms.combinatorial;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UglyNumbers {
 
-    public boolean isUgly(int num) {
-        int div = 2*3*5;
-        while (num > 0 && div > 1) {
-            if (num%div==0) num /= div;
-            else if (div%2==0 && num%2!=0) div/=2;
-            else if (div%3==0 && num%3!=0) div/=3;
-            else if (div%5==0 && num%5!=0) div/=5;
+    private static final int TWO = 2;
+    private static final int THREE = 3;
+    private static final int FIVE = 5;
+
+    public boolean isUgly(final int num) {
+        int tmpNum = num;
+        int div = TWO * THREE * FIVE;
+        while (tmpNum > 0 && div > 1) {
+            if (tmpNum % div == 0) {
+                tmpNum /= div;
+            } else if (div % TWO == 0 && tmpNum % TWO != 0) {
+                div /= TWO;
+            } else if (div % THREE == 0 && tmpNum % THREE != 0) {
+                div /= THREE;
+            } else if (div % FIVE == 0 && tmpNum % FIVE != 0) {
+                div /= FIVE;
+            }
         }
-        return num == 1;
+        return tmpNum == 1;
     }
 
-    public int nthUglyNumber(int n) {
-        if(n<=0) return 0;
-        int a=0,b=0,c=0;
+    public int nthUglyNumber(final int n) {
+        if (n <= 0) {
+            return 0;
+        }
+        int a = 0, b = 0, c = 0;
         List<Integer> table = new ArrayList<Integer>();
         table.add(1);
-        while(table.size()<n)
-        {
-            int next_val = Math.min(table.get(a)*2,Math.min(table.get(b)*3,table.get(c)*5));
-            table.add(next_val);
-            if(table.get(a)*2==next_val) a++;
-            if(table.get(b)*3==next_val) b++;
-            if(table.get(c)*5==next_val) c++;
+        while (table.size() < n) {
+            int nextVal = Math.min(table.get(a) * TWO, Math.min(table.get(b) * THREE, table.get(c) * FIVE));
+            table.add(nextVal);
+            if (table.get(a) * TWO == nextVal) {
+                a++;
+            }
+            if (table.get(b) * THREE == nextVal) {
+                b++;
+            }
+            if (table.get(c) * FIVE == nextVal) {
+                c++;
+            }
         }
-        return table.get(table.size()-1);
+        return table.get(table.size() - 1);
     }
 }

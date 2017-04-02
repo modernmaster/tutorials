@@ -8,20 +8,19 @@ public class PeakAndValleySubOptimal implements SortAlgorithm {
         //{5,1,3,2,3}
         Arrays.sort(unsortedElements);
 
-        for (int i = 1; i < unsortedElements.length; i+=2){
-            swap(unsortedElements, i, i-1);
+        for (int i = 1; i < unsortedElements.length; i += 2) {
+            swap(unsortedElements, i, i - 1);
         }
         return unsortedElements;
 //        return new int[]{5,1,3,2,3};
     }
 
-    private void swap (final int[] sort, final int a, final int b) {
+    private void swap(final int[] sort, final int a, final int b) {
         int tmpa = sort[a];
         sort[a] = sort[b];
         sort[b] = tmpa;
     }
 }
-
 
 
 //    private int[] subOptimalPeakAndTrough(int[] unsorted) {

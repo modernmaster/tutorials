@@ -9,7 +9,7 @@ public class Trie implements LongestCommonPrefix {
         rootNode = new Node();
     }
 
-    public String longestCommonPrefix(String[] strs) {
+    public String longestCommonPrefix(final String[] strs) {
 
         Node node = rootNode;
         String commonPrefix = "";
@@ -19,26 +19,26 @@ public class Trie implements LongestCommonPrefix {
 
         for (int i = 0; i < shortestWord.length(); i++) {
             char curLetter = shortestWord.charAt(i);
-            if(node.getNumberOfChildren()>1 || node.isEnd()) {
+            if (node.getNumberOfChildren() > 1 || node.isEnd()) {
                 return commonPrefix;
             } else {
-                commonPrefix+=curLetter;
+                commonPrefix += curLetter;
                 node = node.get(curLetter);
             }
         }
         return commonPrefix;
     }
 
-    private void insertWords(String[] strs) {
-        for(String str: strs) {
+    private void insertWords(final String[] strs) {
+        for (String str : strs) {
             insertAWord(str);
         }
     }
 
-    private String getShortestWord(String[] strs) {
+    private String getShortestWord(final String[] strs) {
         String shortestWord = strs[0];
-        for (String str: strs) {
-            if(str.length()<shortestWord.length()) {
+        for (String str : strs) {
+            if (str.length() < shortestWord.length()) {
                 shortestWord = str;
             }
         }
@@ -46,7 +46,7 @@ public class Trie implements LongestCommonPrefix {
     }
 
 
-    private void insertAWord(String word) {
+    private void insertAWord(final String word) {
         Node node = rootNode;
         for (int i = 0; i < word.length(); i++) {
             char currentChar = word.charAt(i);
@@ -60,7 +60,7 @@ public class Trie implements LongestCommonPrefix {
 
     //Requires wildcard capability
 
-    private Node searchPrefix(String word) {
+    private Node searchPrefix(final String word) {
         Node node = rootNode;
         for (int i = 0; i < word.length(); i++) {
             char curLetter = word.charAt(i);
@@ -74,7 +74,7 @@ public class Trie implements LongestCommonPrefix {
     }
 
     // Returns if the word is in the trie.
-    public boolean search(String word) {
+    public boolean search(final String word) {
         Node node = searchPrefix(word);
         return node != null && node.isEnd();
     }

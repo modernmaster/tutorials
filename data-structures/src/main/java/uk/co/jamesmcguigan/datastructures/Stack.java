@@ -7,36 +7,40 @@ import java.util.EmptyStackException;
  */
 public class Stack {
 
-    private static class StackNode {
-        private StackNode next;
-        private String data;
-
-        public StackNode(String data) {
-            this.data = data;
-        }
-    }
-
     private StackNode top = null;
 
-    public void Push(String data) {
+    public void Push(final String data) {
         StackNode newNode = new StackNode(data);
         newNode.next = top;
         top = newNode;
     }
 
-    public String Pop() throws EmptyStackException{
-        if(top==null)throw new EmptyStackException();
+    public String pop() throws EmptyStackException {
+        if (top == null) {
+            throw new EmptyStackException();
+        }
         StackNode poppedNode = top;
         top = poppedNode.next;
         return poppedNode.data;
     }
 
-    public String Peek() throws EmptyStackException {
-        if(top==null)throw new EmptyStackException();
+    public String peek() throws EmptyStackException {
+        if (top == null) {
+            throw new EmptyStackException();
+        }
         return top.data;
     }
 
-    public boolean IsEmpty() {
+    public boolean isEmpty() {
         return top == null;
+    }
+
+    private static class StackNode {
+        private StackNode next;
+        private String data;
+
+        StackNode(final String data) {
+            this.data = data;
+        }
     }
 }

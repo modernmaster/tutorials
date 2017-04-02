@@ -4,18 +4,16 @@ import java.util.Arrays;
 
 public class BinaryTree {
 
-    // Definition for a binary tree node.
-    public class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int x) {
-            val = x;
+    public static int findIdx(final int[] a, final int d) {
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] == d) {
+                return i;
+            }
         }
+        return -1;
     }
 
-    public TreeNode buildTree(int[] inorder, int[] postorder) {
+    public TreeNode buildTree(final int[] inorder, final int[] postorder) {
         if (inorder.length == 0) {
             return null;
         }
@@ -31,13 +29,15 @@ public class BinaryTree {
         return root;
     }
 
-    public static int findIdx(int[] a, int d) {
-        for (int i = 0; i < a.length; i++) {
-            if (a[i] == d) {
-                return i;
-            }
+    // Definition for a binary tree node.
+    public class TreeNode {
+        private int val;
+        private TreeNode left;
+        private TreeNode right;
+
+        TreeNode(final int x) {
+            val = x;
         }
-        return -1;
     }
 }
 

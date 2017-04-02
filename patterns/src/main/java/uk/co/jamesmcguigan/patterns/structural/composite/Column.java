@@ -2,7 +2,7 @@ package uk.co.jamesmcguigan.patterns.structural.composite;
 
 public class Column extends Composite {
 
-    public Column(int val) {
+    public Column(final int val) {
         super(val);
     }
 

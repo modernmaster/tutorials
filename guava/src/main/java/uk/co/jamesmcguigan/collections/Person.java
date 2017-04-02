@@ -7,14 +7,14 @@ public class Person implements Comparable<Person> {
     private String firstName;
     private int zipCode;
 
-    public Person(String lastName, String firstName, int zipCode) {
+    public Person(final String lastName, final String firstName,
+                  final int zipCode) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.zipCode = zipCode;
     }
 
-    //The above can be refactored to the following code
-    public int compareTo(Person that) {
+    public int compareTo(final Person that) {
         return ComparisonChain.start()
                 .compare(this.lastName, that.lastName)
                 .compare(this.zipCode, that.zipCode)

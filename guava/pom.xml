@@ -13,6 +13,11 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
+    <properties>
+        <multiproject.basedir>${basedir}\..</multiproject.basedir>
+    </properties>
+
+
     <dependencies>
         <dependency>
             <groupId>com.google.guava</groupId>

@@ -1,7 +1,7 @@
 package uk.co.jamesmcguigan.algorithms;
 
 public class LinkedListCycle {
-    public boolean hasCycle(ListNode head) {
+    public boolean hasCycle(final ListNode head) {
 
         if (head == null) {
             return false;
@@ -33,10 +33,10 @@ public class LinkedListCycle {
     }
 
     class ListNode {
-        int val;
-        ListNode next;
+        private int val;
+        private ListNode next;
 
-        ListNode(int x) {
+        ListNode(final int x) {
             val = x;
             next = null;
         }

@@ -5,9 +5,9 @@ public class Computer {
     private Memory ram;
     private HardDrive hd;
 
-    private final static long BOOT_ADDRESS = 123456789;
-    private final static long BOOT_SECTOR = 123456789;
-    private final static int SECTOR_SIZE = 123456789;
+    private static final long BOOT_ADDRESS = 123456789;
+    private static final long BOOT_SECTOR = 123456789;
+    private static final int SECTOR_SIZE = 123456789;
 
     public Computer() {
         this.processor = new CPU();

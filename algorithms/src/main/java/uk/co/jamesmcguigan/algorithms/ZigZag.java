@@ -1,8 +1,8 @@
 package uk.co.jamesmcguigan.algorithms;
 
 public class ZigZag {
-    public String convert(String s, int numRows) {
-        if(numRows==1 || s.length()<numRows){
+    public String convert(final String s, final int numRows) {
+        if (numRows == 1 || s.length() < numRows) {
             return s;
         }
         int currentPos = 0;
@@ -10,7 +10,7 @@ public class ZigZag {
         char[][] rows = new char[numRows][columns];
 
         for (int j = 0; j < columns; j++) {
-            if(j%2==0) {
+            if (j % 2 == 0) {
                 for (int i = 0; i < numRows; i++) {
                     if (currentPos >= s.length()) {
                         break;
@@ -19,7 +19,7 @@ public class ZigZag {
                     currentPos++;
                 }
             } else {
-                for (int i = numRows-2; i > 0; i--) {
+                for (int i = numRows - 2; i > 0; i--) {
                     if (currentPos >= s.length()) {
                         break;
                     }
@@ -31,7 +31,7 @@ public class ZigZag {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < columns; j++) {
-                if (rows[i][j]!='\0') {
+                if (rows[i][j] != '\0') {
                     builder.append(rows[i][j]);
                 }
             }

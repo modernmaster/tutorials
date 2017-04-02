@@ -141,8 +141,5 @@
     <property name="format" value="(?&lt;!\*)\s+$"/>
     <property name="message" value="Line has trailing spaces."/>
   </module>
-  <module name="SuppressionFilter">
-    <property name="file" value="config/suppressions.xml"/>
-  </module>
   <module name="SuppressionCommentFilter"/>
 </module>

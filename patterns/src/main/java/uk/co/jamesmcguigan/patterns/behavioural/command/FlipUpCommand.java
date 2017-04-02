@@ -3,7 +3,7 @@ package uk.co.jamesmcguigan.patterns.behavioural.command;
 public class FlipUpCommand implements Command {
     private Light theLight;
 
-    public FlipUpCommand(Light light) {
+    public FlipUpCommand(final Light light) {
         this.theLight = light;
     }
 

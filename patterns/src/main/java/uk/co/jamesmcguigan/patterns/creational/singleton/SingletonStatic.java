@@ -2,7 +2,7 @@ package uk.co.jamesmcguigan.patterns.creational.singleton;
 
 public class SingletonStatic {
 
-    private final static SingletonStatic instance = new SingletonStatic();
+    private static final SingletonStatic INSTANCE = new SingletonStatic();
 
     /**
      * Prevents instantiating by other classes.
@@ -10,10 +10,10 @@ public class SingletonStatic {
     private SingletonStatic() {
     }
 
-    //The singleton instance is initialized during the class loading time.
+    //The singleton INSTANCE is initialized during the class loading time.
     // No synchronization is necessary on the getInstance level
     public static SingletonStatic getInstance() {
-        return instance;
+        return INSTANCE;
     }
 }
 

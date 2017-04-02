@@ -13,6 +13,9 @@
 
     <artifactId>algorithms</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <properties>
+        <multiproject.basedir>${basedir}\..</multiproject.basedir>
+    </properties>
 
     <dependencies>
         <dependency>

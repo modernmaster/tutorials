@@ -17,7 +17,7 @@ public class Fruit {
      * Using a private constructor to force the use of the factory method.
      * @param type
      */
-    private Fruit(FruitType type) {
+    private Fruit(final FruitType type) {
     }
 
     /**
@@ -26,7 +26,7 @@ public class Fruit {
      * @param type Any allowed fruit type, e.g. APPLE
      * @return The Fruit instance associated with that type.
      */
-    public static Fruit getFruitByTypeName(FruitType type) {
+    public static Fruit getFruitByTypeName(final FruitType type) {
         Fruit fruit;
         // This has concurrency issues.  Here the read to types is not synchronized,
         // so types.put and types.containsKey might be called at the same time.
@@ -50,7 +50,7 @@ public class Fruit {
      * @param type Any allowed fruit type, e.g. APPLE
      * @return The Fruit instance associated with that type.
      */
-    public static Fruit getFruitByTypeNameHighConcurrentVersion(FruitType type) {
+    public static Fruit getFruitByTypeNameHighConcurrentVersion(final FruitType type) {
         if (!types.containsKey(type)) {
             synchronized (types) {
                 // Check again, after having acquired the lock to make sure

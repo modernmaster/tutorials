@@ -1,15 +1,44 @@
 package uk.co.jamesmcguigan.algorithms.shortestpath.dijkstra;
 
-class Vertex implements Comparable<Vertex>
-{
-    public final String name;
-    public Edge[] adjacencies;
-    public double minDistance = Double.POSITIVE_INFINITY;
-    public Vertex previous;
-    public Vertex(String argName) { name = argName; }
-    public String toString() { return name; }
-    public int compareTo(Vertex other)
-    {
+class Vertex implements Comparable<Vertex> {
+    private final String name;
+    private Edge[] adjacencies;
+    private double minDistance = Double.POSITIVE_INFINITY;
+    private Vertex previous;
+
+    Vertex(final String argName) {
+        name = argName;
+    }
+
+    public String toString() {
+        return name;
+    }
+
+    public int compareTo(final Vertex other) {
         return Double.compare(minDistance, other.minDistance);
+    }
+
+    public double getMinDistance() {
+        return minDistance;
+    }
+
+    public void setMinDistance(final double minDistance){
+        this.minDistance = minDistance;
+    }
+
+    public Edge[] getAdjacencies() {
+        return adjacencies;
+    }
+
+    public void setAdjacencies(Edge[] adjacencies) {
+        this.adjacencies = adjacencies;
+    }
+
+    public Vertex getPrevious() {
+        return previous;
+    }
+
+    public void setPrevious(Vertex previous) {
+        this.previous = previous;
     }
 }

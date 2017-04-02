@@ -19,30 +19,30 @@ public class DeepestPitTest {
         int [] numbers = {8,1,8};
 
 
-        assertEquals(7, deepestPit.calculate_pit(numbers));
+        assertEquals(7, deepestPit.calculatePit(numbers));
     }
 
     @Test
     public void testIdentifyDeepestPitInWithUnevenArray() {
         int [] numbers = {8,1,7};
-        assertEquals(6, deepestPit.calculate_pit(numbers));
+        assertEquals(6, deepestPit.calculatePit(numbers));
     }
 
     @Test
     public void testIdentifyDeepestPitInWithTwoUnevenArrays() {
         int [] numbers = {8,1,7,3,4};
-        assertEquals(6, deepestPit.calculate_pit(numbers));
+        assertEquals(6, deepestPit.calculatePit(numbers));
     }
 
     @Test
     public void testIdentifyDeepestPitInWithNoPit() {
         int [] numbers = {1,2,3,4,5,6,7};
-        assertEquals(-1, deepestPit.calculate_pit(numbers));
+        assertEquals(-1, deepestPit.calculatePit(numbers));
     }
 
     @Test
     public void testIdentifyDeepestPitCodality() {
         int [] numbers = {0,1,3,-2,0,1,0,-3,2,3};
-        assertEquals(4, deepestPit.calculate_pit(numbers));
+        assertEquals(4, deepestPit.calculatePit(numbers));
     }
 }

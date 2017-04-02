@@ -1,6 +1,5 @@
 package uk.co.jamesmcguigan.patterns.creational.factory;
 
-public interface Dog
-{
-    public void speak ();
+public interface Dog {
+    void speak();
 }
