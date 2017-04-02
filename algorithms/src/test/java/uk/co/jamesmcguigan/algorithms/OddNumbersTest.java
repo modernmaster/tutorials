@@ -1,3 +1,5 @@
+package uk.co.jamesmcguigan.algorithms;
+
 import org.junit.Test;
 
 public class OddNumbersTest {

@@ -1,13 +1,10 @@
-package Combinatorial;
+package uk.co.jamesmcguigan.algorithms.combinatorial;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.CoreMatchers.equalTo;
 
-/**
- * Created by James McGuigan on 13/09/2015.
- */
 public class UglyNumbersTests {
     @Test
     public void RunUglyNumbers(){

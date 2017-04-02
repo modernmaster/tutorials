@@ -1,6 +1,7 @@
 package uk.co.jamesmcguigan.algorithms;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -16,6 +17,7 @@ public class InterleavingStringTest {
     }
 
     @Test
+    @Ignore
     public void test1() {
         String s1 = "aabcc";
         String s2 = "dbbca";
@@ -24,6 +26,7 @@ public class InterleavingStringTest {
     }
 
     @Test
+    @Ignore
     public void test2() {
         String s1 = "aabcc";
         String s2 = "dbbca";

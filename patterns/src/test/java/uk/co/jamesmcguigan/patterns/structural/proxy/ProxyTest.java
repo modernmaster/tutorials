@@ -1,10 +1,12 @@
 package uk.co.jamesmcguigan.patterns.structural.proxy;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class ProxyTest {
 
     @Test
+    @Ignore
     public void testProxyObjectForSocket() {
 
         // 3. The client deals with the wrapper

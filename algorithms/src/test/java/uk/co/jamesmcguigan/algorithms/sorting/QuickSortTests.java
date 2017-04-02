@@ -1,4 +1,4 @@
-package Sorting;
+package uk.co.jamesmcguigan.algorithms.sorting;
 
 import org.junit.Test;
 

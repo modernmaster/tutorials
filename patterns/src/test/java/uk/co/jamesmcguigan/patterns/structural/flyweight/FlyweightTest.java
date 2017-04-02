@@ -1,5 +1,6 @@
 package uk.co.jamesmcguigan.patterns.structural.flyweight;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.*;
@@ -7,6 +8,7 @@ import java.awt.*;
 public class FlyweightTest {
 
     @Test
+    @Ignore
     public void testCreationOfColorBoxesSharingResources() {
         int size = 18, pause = 50;
         Frame f = new Frame("ColorBoxes - 1 thread per ColorBox");

@@ -1,4 +1,4 @@
-package Sorting;
+package uk.co.jamesmcguigan.algorithms.sorting;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -6,12 +6,8 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.Comparator;
 
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.CoreMatchers.equalTo;
 
-/**
- * Created by James McGuigan on 12/09/2015.
- */
 public class MergeSortTests {
 
     @Test

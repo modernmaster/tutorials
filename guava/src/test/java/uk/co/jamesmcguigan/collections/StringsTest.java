@@ -4,6 +4,7 @@ import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -65,6 +66,7 @@ public class StringsTest {
     }
 
     @Test
+    @Ignore
     public void testCommonPrefix() {
         final String s1 = "abcdefghijklm";
         final String s2 = "edcbaabcdefmlkjihgm";

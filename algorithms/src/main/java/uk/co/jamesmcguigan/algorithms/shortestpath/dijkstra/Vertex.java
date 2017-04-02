@@ -22,7 +22,7 @@ class Vertex implements Comparable<Vertex> {
         return minDistance;
     }
 
-    public void setMinDistance(final double minDistance){
+    public void setMinDistance(final double minDistance) {
         this.minDistance = minDistance;
     }
 
@@ -30,7 +30,7 @@ class Vertex implements Comparable<Vertex> {
         return adjacencies;
     }
 
-    public void setAdjacencies(Edge[] adjacencies) {
+    public void setAdjacencies(final Edge[] adjacencies) {
         this.adjacencies = adjacencies;
     }
 
@@ -38,7 +38,7 @@ class Vertex implements Comparable<Vertex> {
         return previous;
     }
 
-    public void setPrevious(Vertex previous) {
+    public void setPrevious(final Vertex previous) {
         this.previous = previous;
     }
 }

@@ -1,15 +1,14 @@
-package Lists;
+package uk.co.jamesmcguigan.algorithms.lists;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.CoreMatchers.equalTo;
 
-/**
- * Created by James McGuigan on 13/09/2015.
- */
 public class MergeListsTest {
     @Test
+    @Ignore
     public void MergeTwoSortedListsTest(){
         int[] m = {1,5,7,9};
         int[] n = {2,4,6,8,10,12,14};
