@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+    "-//Puppy Crawl//DTD Suppressions 1.1//EN"
+    "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
+
+<suppressions>
+    <suppress checks=".*" files="Generated.*\\.java" />
+    <suppress checks=".*" files=".*HMCExtension\\.java" />
+    <suppress checks=".*" files="platformhome.properties" />
+    <suppress checks=".*" files="project.properties" />
+    <suppress checks=".*" files="png$" />
+    <suppress checks=".*" files="xml$" />
+    <suppress checks=".*" files="xml\\.gz$" />
+    <suppress checks="MagicNumber" files=".*\\*Test.java" />
+</suppressions>
+        
