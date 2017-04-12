@@ -78,4 +78,5 @@ public class OrderingTests {
 
         assertThat(p1, equalTo(sortedPersons.get(0)));
     }
+
 }
