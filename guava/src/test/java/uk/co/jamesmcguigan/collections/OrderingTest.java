@@ -10,7 +10,7 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
 
-public class OrderingTests {
+public class OrderingTest {
 
     @Test
     public void testNaturalOrderingWithIntegers() {

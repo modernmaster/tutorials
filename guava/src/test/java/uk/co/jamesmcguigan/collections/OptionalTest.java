@@ -8,7 +8,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-public class OptionalTests {
+public class OptionalTest {
 
 //Besides the increase in readability that comes from giving null a name, the biggest advantage of Optional is its
 // idiot-proof-ness. It forces you to actively think about the absent case if you want your program to compile at

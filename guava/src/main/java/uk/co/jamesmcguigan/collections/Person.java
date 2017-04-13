@@ -22,6 +22,19 @@ public class Person implements Comparable<Person> {
                 .result();
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public int getZipCode() {
+        return zipCode;
+    }
+
+
     @Override
     public String toString() {
         return String.format("%s %s", firstName, lastName);

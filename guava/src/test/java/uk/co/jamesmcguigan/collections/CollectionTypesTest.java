@@ -1,15 +1,19 @@
 package uk.co.jamesmcguigan.collections;
 
 import com.google.common.collect.*;
+import org.joda.time.DateTime;
 import org.junit.Test;
 
+import java.util.List;
+
 import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertSame;
 import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class CollectionTypesTests {
+public class CollectionTypesTest {
     //Is not a map
     //True collection type
     //Implements iterator
@@ -46,6 +50,8 @@ public class CollectionTypesTests {
     }
 
     //SortedMultiset interface with TreeMultiset and comparator
+    //Great to use when dealing with a set of multiple items
+    //Ordering performed at insertion.
     @Test
     public void testTreeMultisetSortingWithCountAndSize() {
         SortedMultiset<String> set = TreeMultiset.create();
@@ -59,6 +65,8 @@ public class CollectionTypesTests {
         assertThat(2, equalTo(set.count("a")));
         assertThat(10, equalTo(set.size()));
         assertThat("e", equalTo(set.elementSet().pollLast()));
+        //Very powerful filtering mechanism without using streams/map/reduce
+        assertThat(1, equalTo(set.subMultiset("d", BoundType.CLOSED, "z", BoundType.OPEN).size()));
     }
 
     //Multiset with LinkedHashMultiset implementation
@@ -94,11 +102,90 @@ public class CollectionTypesTests {
     //Multimap interface
     //https://github.com/google/guava/wiki/NewCollectionTypesExplained#multimap
 
+    //Deals with Map<K, List<V>> or Map<K, Set<v>>
+    //Dealis with keys to multiple values
+    //a->1
+    //a->2
+    //b->3
+    //Multimap is not a map
+
+    //Implementations...
+//    ArrayListMultimap	HashMap	ArrayList
+//    HashMultimap	HashMap	HashSet
+//    LinkedListMultimap *	LinkedHashMap``*	LinkedList``*
+//    LinkedHashMultimap**	LinkedHashMap	LinkedHashSet
+//    TreeMultimap	TreeMap	TreeSet
+//    ImmutableListMultimap	ImmutableMap	ImmutableList
+//    ImmutableSetMultimap	ImmutableMap	ImmutableSet
+
+    @Test
+    public void testMultiMapForMultipleKeys() {
+
+        Multimap<String, List<Integer>> map = ArrayListMultimap.create();
+
+        map.put("a", Lists.newArrayList(1, 2, 3, 4));
+        map.put("a", Lists.newArrayList(4, 3, 2, 1));
+        map.put("b", Lists.newArrayList(1, 2));
+        map.put("c", Lists.newArrayList(3, 4));
+
+        //provides latest state of the multimap
+        //modifications update all collections
+        //get provides an active view
+        assertThat(2, equalTo(map.get("a").size()));
+        map.get("a").add(Lists.newArrayList(3, 4));
+        //mutable when using
+        assertThat(3, equalTo(map.get("a").size()));
+        //read only
+        //map.asMap()
+        assertThat(5, equalTo(map.size()));
+    }
+
     //Bimap interface
     //https://github.com/google/guava/wiki/NewCollectionTypesExplained#bimap
+//    Key-Value Map Impl	Value-Key Map Impl	Corresponding BiMap
+//    HashMap	HashMap	HashBiMap
+//    ImmutableMap	ImmutableMap	ImmutableBiMap
+//    EnumMap	EnumMap	EnumBiMap
+//    EnumMap	HashMap	EnumHashBiMap
+    @Test
+    public void testMapValuesBackToTheirKeys() {
+
+        BiMap<String, List<Integer>> map = HashBiMap.create();
+        map.put("a", Lists.newArrayList(1, 2, 3, 4));
+        //overwrites previous key's value
+        map.put("a", Lists.newArrayList(4, 3, 2, 1));
+        map.put("b", Lists.newArrayList(1, 2));
+        map.put("c", Lists.newArrayList(3, 4));
+
+        assertThat(3, equalTo(map.size()));
+        map.inverse().put(Lists.newArrayList(5, 6), "d");
+        assertThat(4, equalTo(map.size()));
+    }
+
 
     //Table interface
     //https://github.com/google/guava/wiki/NewCollectionTypesExplained#table
+    //Indexing on more than one key is messy... use table
+//    HashBasedTable
+//    TreeBasedTable
+//    ImmutableTable
+//    ArrayTable
+//    Possible ordering capability but seems difficult
+    @Test
+    public void testCreationOfMultiIndexValuesInTable() {
+        Table<DateTime, String, String> records = HashBasedTable.create();
+
+        DateTime now = DateTime.now();
+        records.put(now, "A", "B");
+        records.put(DateTime.now(), "C", "D");
+        records.put(DateTime.now(), "E", "F");
+
+        assertThat("B", equalTo(records.row(now).get("A")));
+        assertThat("A", is(not(equalTo(records.row(now).get("B")))));
+//        records.column("Doe");
+//        records.rowKeySet().
+    }
+
 
     //Rangeset
     //https://github.com/google/guava/wiki/NewCollectionTypesExplained#rangeset

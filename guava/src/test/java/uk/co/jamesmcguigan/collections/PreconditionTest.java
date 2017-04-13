@@ -12,7 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 //Avoid passing message arguments that are expensive to compute; your code will always compute them, even though
 // they usually won't be needed. If you have such arguments, use the conventional if/throw idiom instead.
 
-public class PreconditionTests {
+public class PreconditionTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testCheckArgumentWhenParametersAreInvalid() {

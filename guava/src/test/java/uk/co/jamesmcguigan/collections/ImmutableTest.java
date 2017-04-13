@@ -12,7 +12,7 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ImmutableTests {
+public class ImmutableTest {
 //    Collection	JDK	ImmutableCollection
 //    List	JDK	ImmutableList
 //    Set	JDK	ImmutableSet
