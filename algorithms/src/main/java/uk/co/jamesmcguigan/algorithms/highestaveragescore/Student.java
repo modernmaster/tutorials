@@ -7,7 +7,7 @@ public class Student {
     private String name;
     private List<Integer> scores;
 
-    public Student(String name) {
+    public Student(final String name) {
         this.name = name;
         scores = new ArrayList<>();
     }
@@ -16,7 +16,7 @@ public class Student {
         return name;
     }
 
-    public void addScores(Integer score) {
+    public void addScores(final Integer score) {
         scores.add(score);
     }
 

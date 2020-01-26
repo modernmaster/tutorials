@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HighestAverageScore {
-    public Student calculate(String[][] scores) {
+    public Student calculate(final String[][] scores) {
         Collection<Student> students = buildStudentCollection(scores);
         Student highestAverage = null;
         Double highestAverageScore = 0d;
-        for(Student student:students) {
+        for (Student student : students) {
             Double averageScore = student.calculateAverageScore();
             if ((highestAverage == null) || (averageScore > highestAverageScore)) {
                 highestAverage = student;
@@ -19,7 +19,7 @@ public class HighestAverageScore {
         return highestAverage;
     }
 
-    private Collection<Student> buildStudentCollection(String[][] scores){
+    private Collection<Student> buildStudentCollection(final String[][] scores) {
         Map<String, Student> studentScores = new HashMap<>();
         for (String[] strings : scores) {
             String studentName = strings[0];
