@@ -1,29 +1,30 @@
 package uk.co.jamesmcguigan.algorithms;
 
-import java.util.LinkedList;
-
 public class TrappingRainWater {
-    public int calculate(int[] input) {
-        int currentVolume = 0;
-        int currentPeak = 0;
-        LinkedList<Integer> peaks = new LinkedList<Integer>();
-        for(int i=0;i<input.length;i++) {
-            if(input[i]>currentPeak) {
-                peaks.add(i);
+    public int calculate(final int[] input) {
+        int n = input.length;
+        int result = 0;
+        int leftMaxPeak = 0, rightMaxPeak = 0;
+        int i = 0, j = n - 1;
+        while (i <= j) {
+            if (input[i] < input[j]) {
+                if (input[i] > leftMaxPeak) {
+                    //Found peak, update max on left
+                    leftMaxPeak = input[i];
+                } else {
+                    result += leftMaxPeak - input[i];
+                }
+                i++;
+            } else {
+                if (input[j] > rightMaxPeak) {
+                    //Found peak, update max on right
+                    rightMaxPeak = input[j];
+                } else {
+                    result += rightMaxPeak - input[j];
+                }
+                j--;
             }
         }
-
-        for
-
-
-//        int currentPeak = 0;
-//        for(int i=0;i<input.length;i++) {
-//            if(input[i]>currentPeak) {
-//                currentPeak = input[i];
-//            } else {
-//                currentVolume += currentPeak -input[i];
-//            }
-//        }
-    return currentVolume;
+        return result;
     }
 }
