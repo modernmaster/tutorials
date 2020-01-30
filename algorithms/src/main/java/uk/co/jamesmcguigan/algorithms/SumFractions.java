@@ -1,14 +1,15 @@
 package uk.co.jamesmcguigan.algorithms;
 
 public class SumFractions {
-    public String calculate(int numerator1, int denominator1, int numerator2, int denominator2) {
+    public String calculate(final int numerator1, final int denominator1,
+                            final int numerator2, final int denominator2) {
         int commonDenominator = denominator1 * denominator2;
         int numeratorResult = (commonDenominator / denominator1) * numerator1
                 + (commonDenominator / denominator2) * numerator2;
         return getSimplified(numeratorResult, commonDenominator);
     }
 
-    private String getSimplified(int numerator, int denominator) {
+    private String getSimplified(final int numerator, final int denominator) {
         int currentNumerator = numerator;
         int currentDenomiator = denominator;
         while (currentNumerator % 2 == 0 && currentDenomiator % 2 == 0) {
@@ -21,7 +22,7 @@ public class SumFractions {
         return String.format("%s/%s", currentNumerator, currentDenomiator);
     }
 
-    private String getSimplifiedFractionWithWhole(int currentNumerator, int currentDenomiator) {
+    private String getSimplifiedFractionWithWhole(final int currentNumerator, final int currentDenomiator) {
         int wholeNumber = Math.round(currentNumerator / currentDenomiator);
         int simplifiedNumerator = currentNumerator % currentDenomiator;
         return String.format("%s %s/%s", wholeNumber, Math.abs(simplifiedNumerator), currentDenomiator);

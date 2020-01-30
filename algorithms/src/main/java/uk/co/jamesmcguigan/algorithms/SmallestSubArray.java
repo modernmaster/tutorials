@@ -1,7 +1,7 @@
 package uk.co.jamesmcguigan.algorithms;
 
 public class SmallestSubArray {
-    public int calculate(int[] input, int x) throws NotPossibleException {
+    public int calculate(final int[] input, final int x) throws NotPossibleException {
         int smallestSubArray = 0;
         for (int i = 0; i < input.length; i++) {
             int sum = input[i];
@@ -15,7 +15,7 @@ public class SmallestSubArray {
             }
         }
         if (smallestSubArray == 0) {
-            throw new NotPossibleException("sdfasdf");
+            throw new NotPossibleException("Not possible");
         }
         return smallestSubArray;
     }
