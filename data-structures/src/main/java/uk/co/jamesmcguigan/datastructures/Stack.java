@@ -9,7 +9,7 @@ public class Stack {
 
     private StackNode top = null;
 
-    public void Push(final String data) {
+    public void push(final String data) {
         StackNode newNode = new StackNode(data);
         newNode.next = top;
         top = newNode;
