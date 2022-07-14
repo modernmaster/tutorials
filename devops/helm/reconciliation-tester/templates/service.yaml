@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "reconciliation-tester.fullname" . }}
+  labels:
+    {{- include "reconciliation-tester.labels" . | nindent 4 }}
+spec:
+{{- with .Values.service }}
+  type: {{ .type }}
+  ports:
+    - port:       {{ .port.number }}
+      targetPort: {{ .port.name }}
+      protocol:   TCP
+      name:       {{ .port.name }}
+{{- end }}
+  selector:
+    {{- include "reconciliation-tester.selectorLabels" . | nindent 4 }}

@@ -1,0 +1,6 @@
+
+app:
+  kafkaQAhostsHack: true
+  vaultSecrets:
+    mongo:  true
+    kafka:  true

@@ -1,0 +1,83 @@
+//==================== VARIABLES ===========================
+def sPrimaryBranch    = 'main'
+def sPrimaryChartRepo = 's3://helm.isoftbet.com/charts'
+
+//====================== BUILD =============================
+
+pipeline {
+  agent {
+    label '!NoBitBucket'
+  }
+  stages {
+    stage ('Checkout'){
+      steps{
+        timestamps {
+          retry(3) {
+            checkout scm
+          }
+        }
+      }
+    }
+    stage ('Bump Version') {
+      steps{
+        timestamps {
+          withCredentials([usernameColonPassword(credentialsId: 'jenkins_git', variable: 'JenkinsCreds')]) {
+            sh'''
+              git remote set-url origin https://${JenkinsCreds}@$(git remote -v| grep fetch | awk '{sub("https://","",$2);print $2}')
+            '''
+          }
+          sh '''
+            curl -LO http://18.192.26.89/repo/isb-semantic-versioning/docker_semver.sh
+            curl -LO http://18.192.26.89/repo/isb-semantic-versioning/helmrepo.sh
+            chmod +x docker_semver.sh
+            chmod +x helmrepo.sh
+            if [[ -v ${KUBECONFIG} ]]
+            then
+              chmod 600 ${KUBECONFIG} || true
+            else
+              chmod 600 ~/.kube/config || true
+            fi
+            ./docker_semver.sh --bump-version patch
+          '''
+        }
+      }
+    }
+    stage ('Template and Build Chart') {
+      steps{
+        timestamps {
+          sh'''
+            helm template .
+            ./helmrepo.sh --bundle
+          '''
+        }
+      }
+    }
+    stage ('Publish Chart And Push tags to Git') {
+      steps{
+        timestamps {
+          script {
+            if (env.BRANCH_NAME == sPrimaryBranch) {
+              withAWS(credentials: 'aws-credentials-core', region: 'eu-central-1') {
+                withEnv([
+                  "S3_BUCKET_URL=${ sPrimaryChartRepo }",
+                ]) {
+                  sh '''
+                    ./helmrepo.sh --push
+                    ./docker_semver.sh --push
+                  '''
+                }
+              }
+            } else {
+              archiveArtifacts artifacts: '*.tgz', fingerprint: true
+            }
+          }
+        }
+      }
+    }
+  }
+  post {
+    always {
+      cleanWs()
+    }
+  }
+}

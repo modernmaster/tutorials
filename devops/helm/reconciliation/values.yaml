@@ -1,0 +1,115 @@
+# Default values for reconciliation.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: 376535208655.dkr.ecr.eu-central-1.amazonaws.com
+  container:  recon-base
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext:
+  fsGroup: 2000
+
+securityContext:
+  # capabilities:
+  #   drop:
+  #   - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 2001
+
+service:
+  type: ClusterIP
+  port: 3000
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+      - path: /
+        backend:
+          serviceName: chart-example.local
+          servicePort: 80
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 256Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+app:
+  disableHealthChecks: false
+  env: {}
+#    TIMEZONE: "Europe/London"
+#    REQUESTS_DEADLINE: 2000
+#    RECONCILIATOR_HOST: reconciliator
+#    RECONCILIATOR_PORT: 3000
+#    PURSE_HOST: purse
+#    PURSE_PORT: 3000
+#    STORE_HOST: store
+#    STORE_PORT: 3000
+#    KAFKA_HOST: kafka
+#    KAFKA_PORT: 3000
+#    KAFKA_FAILED_TOPIC: failed_transaction
+  healthChecks:
+    protoPath:  'common/healthcheck.proto'
+    liveness:
+      method:   'reconciliation.Health.Check'
+      extra:    '| grep SERVING'
+      failureThreshold: '7'
+    readiness:
+      method:   'reconciliation.Health.Check'
+      extra:    '| grep SERVING'
+  kafkaQAhostsHack: false
+  mongo:
+    prefix:   'mongodb+srv://'
+    username: reconuser
+    password: reconpass
+    host:     recon-qa.fw4gh.mongodb.net
+    database: recon
+    options:  'retryWrites=true&w=majority'
+  vaultSecrets:
+    mongo:  false
+    kafka:  false

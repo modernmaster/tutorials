@@ -1,0 +1,105 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "reconciliation.fullname" . }}
+  labels:
+    {{- include "reconciliation.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "reconciliation.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+      {{- if .Values.app.vaultSecrets.mongo }}
+        {{- include "reconciliation.vaultMongo" . | nindent 8 -}}
+      {{- end }}
+      {{- if .Values.app.vaultSecrets.kafka }}
+        {{- include "reconciliation.vaultKafka" . | nindent 8 -}}
+      {{- end }}
+      {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "reconciliation.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "reconciliation.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Release.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}/{{ .Values.image.container }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          {{- if .Values.app.vaultSecrets.mongo }}
+            - name: MONGODB_VAULT_PATH
+              value: "/vault/secrets/mongodsn.json"
+          {{- else }}
+            - name:   "MONGODB_DSN"
+              valueFrom:
+                secretKeyRef:
+                  key:  mongoDsn
+                  name: {{ include "reconciliation.fullname" . }}
+          {{- end }}
+          {{- if .Values.app.vaultSecrets.kafka }}
+            - name: KAFKA_VAULT_PATH
+              value: "/vault/secrets/kafka-cfg.json"
+          {{- end }}
+          {{- range $name, $value := .Values.app.env }}
+          {{- if not (empty $value) }}
+            - name: {{ $name | quote }}
+              value: {{ $value | quote }}
+          {{- end }}
+          {{- end }}
+          ports:
+            - name:           node
+              containerPort:  {{ .Values.service.port }}
+              protocol:       TCP
+          {{- if not .Values.app.disableHealthChecks }}
+          livenessProbe:
+            {{- with .Values.app.healthChecks }}
+            exec:
+              command:
+              - sh
+              - -c
+              - |
+                grpcurl -plaintext -import-path /var/protosrc -proto {{ .protoPath }} 127.0.0.1:{{ $.Values.service.port }} {{ .liveness.method }} {{ .liveness.extra }}
+            failureThreshold: {{ .liveness.failureThreshold }}
+          readinessProbe:
+            exec:
+              command:
+              - sh
+              - -c
+              - |
+                grpcurl -plaintext -import-path /var/protosrc -proto {{ .protoPath }} 127.0.0.1:{{ $.Values.service.port }} {{ .readiness.method }} {{ .readiness.extra }}
+            {{- end }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- if .Values.app.kafkaQAhostsHack }}
+      hostAliases:
+        - hostnames:
+          - kafka.isoftbet.com
+          ip: 92.83.184.116
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
