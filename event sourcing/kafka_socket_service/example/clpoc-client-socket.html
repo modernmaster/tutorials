@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Socket Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"
+            type="application/javascript"></script>
+</head>
+<body>
+<script>
+    const socket = io('localhost:3013');
+    // const socket = io('https://kss-qa.isoftbet.com:3012');
+    // const socket = io('https://kss-stage.isoftbet.com:3013');
+    socket.emit('register', {
+        topic: "competition_labs_poc_freeround",
+        playerID: "popescu.alexandru",
+        lid: 530,
+        operator: "0",
+        skinID: 5616
+    });
+    socket.on('feed', function (data) {
+        console.log(JSON.stringify(data));
+    });
+</script>
+</body>
+</html>

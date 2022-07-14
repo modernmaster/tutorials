@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Socket Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"
+            type="application/javascript"></script>
+</head>
+<body>
+<script>
+    const socket = io('localhost:3012');
+    socket.emit('register', {
+		topic: "jackpot_backoffice_realtime",
+		lid: 628,
+		engineId: [15679, 15682, 15685, 15907, 15910, 15913]
+	});
+    socket.on('feed', function (data) {
+        console.log('feed!')
+        console.log(JSON.stringify(data));
+    });
+    socket.on('win', function (data) {
+        console.log('win!')
+        console.log(JSON.stringify(data));
+    });
+</script>
+</body>
+</html>
