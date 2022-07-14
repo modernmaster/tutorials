@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: gateway-service
+  config:
+    active: prod
+  profiles:
+    active: prod
+  cloud:
+    vault:
+      ssl:
+        trust-store: classpath:keystore.p12
+        trust-store-password: password
+      token: s.x2AZJpI7cLCFPnmE2OHNjd0L
+      host: 127.0.0.1
+      port: 8200
+      scheme: https
+      uri: https://host.docker.internal:8200
+      connection-timeout: 5000
+      read-timeout: 15000
+      config:
+        order: -10
+      generic:
+        enabled: true
+

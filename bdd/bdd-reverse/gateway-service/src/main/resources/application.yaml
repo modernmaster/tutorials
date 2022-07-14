@@ -1,0 +1,53 @@
+logging:
+  level:
+    root: ERROR
+    org:
+      apache:
+        http: ERROR
+    springframework:
+      data:
+        rest:
+          webmvc:
+            json: ERROR
+management:
+  health:
+    gateway:
+      enabled: true
+    vault:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+server:
+  port: 8080
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+          filters:
+            - RewritePath='/' + serviceId + '/(?<remaining>.*)', '/${remaining}'
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods:
+              - POST, GET
+      routes:
+        - id: book-checkout
+          uri: http://book-checkout/
+          predicates:
+            - Path=/bookstore/**
+        - id: ui
+          uri: http://ui/
+          predicates:
+            - Path=/**
+
+  main:
+    allow-bean-definition-overriding: true
+  devtools:
+    add-properties: true

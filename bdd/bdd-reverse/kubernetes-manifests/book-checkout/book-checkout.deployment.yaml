@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: book-checkout
+  namespace: gap
+  labels:
+    app: book-checkout
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: book-checkout
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: book-checkout
+        tier: backend
+    spec:
+      containers:
+      - name: book-checkout
+        image: book-checkout
+        ports:
+        - name: http-server
+          containerPort: 8080
+        env:
+        - name: HOST_NAME
+          value: book-checkout
+        - name: eureka.client.service-url.defaultZone
+          value: http://discovery-service:8761/eureka

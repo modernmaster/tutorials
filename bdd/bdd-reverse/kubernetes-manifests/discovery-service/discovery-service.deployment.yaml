@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: discovery-service
+  namespace: gap
+  labels:
+    app: discovery-service
+    tier: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: discovery-service
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: discovery-service
+        tier: frontend
+    spec:
+      containers:
+      - name: discovery-service
+        image: discovery-service
+        ports:
+        - name: eureka
+          containerPort: 8761
+        env:
+          - name: eureka.instance.hostname
+            value: discovery-service

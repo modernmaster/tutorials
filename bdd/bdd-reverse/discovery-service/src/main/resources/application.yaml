@@ -1,0 +1,24 @@
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+logging:
+  level:
+    root: ERROR
+    com:
+      netflix:
+        eureka: OFF
+        discovery: OFF
+    org:
+      apache:
+        http: ERROR
+    springframework:
+      data:
+        rest:
+          webmvc:
+            json: ERROR
+server:
+  port: 8761
+spring:
+  devtools:
+    add-properties: true
