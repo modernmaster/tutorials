@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: book-checkout
+  config:
+    active: prod
+  profiles:
+    active: prod

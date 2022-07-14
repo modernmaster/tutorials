@@ -1,0 +1,23 @@
+logging:
+  level:
+    root: ERROR
+    org:
+      apache:
+        http: ERROR
+    springframework:
+      data:
+        rest:
+          webmvc:
+            json: ERROR
+management:
+  health:
+    gateway:
+      enabled: true
+    vault:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+server:
+  port: 8080

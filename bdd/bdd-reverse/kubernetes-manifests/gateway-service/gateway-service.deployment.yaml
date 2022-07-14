@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway-service
+  namespace: gap
+  labels:
+    app: gateway-service
+    tier: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway-service
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: gateway-service
+        tier: frontend
+    spec:
+      containers:
+        - name: gateway-service
+          image: gateway-service
+          ports:
+            - name: http-server
+              containerPort: 8080
+          env:
+            - name: eureka.client.serviceUrl.defaultZone
+              value: http://discovery-service:8761/eureka

@@ -1,0 +1,45 @@
+apiVersion: skaffold/v2beta19
+kind: Config
+build:
+  artifacts:
+    - image: gateway-service
+      jib:
+        project: gateway-service
+    - image: discovery-service
+      jib:
+        project: discovery-service
+    - image: book-checkout
+      jib:
+        project: book-checkout
+    - image: ui
+      context: ui
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        infer:
+          - 'ui/build/*.*'
+  tagPolicy:
+    sha256: {}
+deploy:
+  kubectl:
+    manifests:
+      - ./kubernetes-manifests/**.yaml
+      - ./kubernetes-manifests/**/**.yaml
+profiles:
+  - name: cloudbuild
+    build:
+      googleCloudBuild: {}
+  - name: dockerfile
+    build:
+      artifacts:
+        - image: gateway-service
+          context: gateway-service
+        - image: discovery-service
+          context: discovery-service
+        - image: reverse-bdd
+          context: reverse-bdd
+        - image: ui
+          context: ui
+          sync:
+            infer:
+              - 'ui/build/*.*'

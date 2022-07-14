@@ -1,0 +1,24 @@
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+#  name: gateway-service-ingress
+#  namespace: gap
+#  annotations:
+#    nginx.ingress.kubernetes.io/rewrite-target:  /$1
+#    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+#spec:
+#  tls:
+#    - hosts:
+#        - localhost
+#      secretName: default-server-secret
+#  rules:
+#    - host: localhost
+#      http:
+#        paths:
+#          - path: /(.*)
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: gateway-service
+#                port:
+#                  number: 80
