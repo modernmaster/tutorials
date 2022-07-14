@@ -1,0 +1,24 @@
+logging:
+  level:
+    root: ERROR
+server:
+  port: 8083
+spring:
+  data:
+    rest:
+      base-path: /api
+      max-page-size: 5000
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    #password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  kafka:
+    consumer:
+      bootstrap-servers: kafka.local:9092
+topics:
+  session_start: session_start
+  wallet_transaction: wallet_transaction
+  game_details: game_details

@@ -1,0 +1,28 @@
+{
+  "properties": [
+    {
+      "name": "kafka.bootstrapAddress",
+      "type": "java.lang.String",
+      "description": "Description for kafka.bootstrapAddress."
+    },
+    {
+      "name": "message.topic.name",
+      "type": "java.lang.String",
+      "description": "Description for message.topic.name."
+    },
+    {
+      "name": "topics.session_start",
+      "type": "java.lang.String",
+      "description": "Description for topics.session_start."
+    },
+    {
+      "name": "topics.wallet_transaction",
+      "type": "java.lang.String",
+      "description": "Description for topics.wallet_transaction."
+    },
+    {
+      "name": "topics.game_details",
+      "type": "java.lang.String",
+      "description": "Description for topics.game_details."
+    }
+  ] }

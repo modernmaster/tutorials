@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "kafka.bootstrapAddress",
+      "type": "java.lang.String",
+      "description": "Description for kafka.bootstrapAddress."
+    },
+    {
+      "name": "message.topic.name",
+      "type": "java.lang.String",
+      "description": "Description for message.topic.name."
+    }
+  ] }
