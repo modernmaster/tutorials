@@ -1,0 +1,16 @@
+<div class="text-center">
+  <form class="form-signin" novalidate name="loginForm" ng-submit="submitForm(loginForm.$valid)">
+    <img class="mb-4" src="https://angularjs.org/img/AngularJS-large.png" alt="Logo">
+
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label for="username" class="sr-only">Email address</label>
+    <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus ng-model="username">
+    <p class="text-danger" ng-show="loginForm.username.$error.required  && !loginForm.username.$pristine">Username is required</p>
+    <label for="password" class="sr-only">Password</label>
+    <input type="password" id="password" class="form-control" placeholder="Password" required ng-model="password">
+    <p class="text-danger" ng-show="loginForm.password.$error.required && !loginForm.password.$pristine">Password is required</p>
+    <button class="btn btn-lg btn-primary btn-block" ng-class="{'progress-bar-striped progress-bar-animated': progress}" type="submit" >Sign in</button>
+    <span class="text-danger" ng-bind="message"></span>
+    <p class="mt-5 mb-3 text-muted">&copy; {{copyrightYear}}</p>
+  </form>
+</div>

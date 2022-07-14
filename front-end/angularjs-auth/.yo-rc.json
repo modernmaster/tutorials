@@ -1,0 +1,16 @@
+{
+  "generator-webpack-angularjs": {
+    "app": "ui",
+    "module": "consumer",
+    "services": [
+      "LoginSvc"
+    ],
+    "directives": [
+      "titlecase"
+    ],
+    "states": [
+      "login",
+      "home"
+    ]
+  }
+}
