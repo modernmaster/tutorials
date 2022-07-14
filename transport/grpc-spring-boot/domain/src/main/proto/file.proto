@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package domain;
+
+option java_multiple_files = true;
+option java_package = "domain";
+option java_outer_classname = "HelloWorldProto";
+
+// The greeting service definition.
+service MyService {
+  // Sends a greeting
+  rpc SayHello (HelloRequest) returns (HelloReply) {
+  }
+  rpc SayHelloToStock (Stock) returns (HelloReply) {
+  }
+  rpc getStock(StockRequest) returns (Stock) {
+  }
+
+}
+
+// The request message containing the user's name.
+message StockRequest {
+  string symbol = 1;
+}
+
+
+// The request message containing the user's name.
+message HelloRequest {
+  string name = 1;
+}
+
+// The response message containing the greetings
+message HelloReply {
+  string message = 1;
+}
+
+message Stock {
+  string id = 1;
+  string admission_date = 2;
+  string company_name = 3;
+  string symbol = 4;
+  bool active = 5;
+  string icb_industry = 6;
+  string icb_super_sector = 7;
+  string country_of_incorporation = 8;
+  string market = 9;
+  string company_market_cap = 10;
+  double price = 11;
+  double percentage_change = 12;
+  double open_price = 13;
+  uint32 volume = 14;
+  uint32 avg_volume = 15;
+  double pe = 16;
+  double high = 17;
+  double eps = 18;
+  double change = 19;
+  double close_yesterday = 20;
+  uint32 shares_outstanding = 21;
+  string currency = 22;
+  double low = 23;
+  string last_trade_time = 24;
+  double high52 = 25;
+  double low52 = 26;
+  string delay = 27;
+  //  repeated HistoricalPrice historical_prices = 28;
+  //  map<string, Trend> trends = 29;
+  //  repeated Pattern patterns = 30;
+  //  LocalDateTime date_time_updated = 31;
+}

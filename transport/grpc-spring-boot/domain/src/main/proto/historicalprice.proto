@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package domain;
+
+option java_multiple_files = true;
+option java_package = "domain";
+option java_outer_classname = "HistoricalPriceProto";
+
+
+message HistoricalPrice {
+  //  Timestamp date = 1;
+  double closing = 2;
+  double opening = 3;
+  double days_high = 4;
+  double days_low = 5;
+  //  Timestamp date_time_created = 6;
+}
+
