@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui
+  namespace: forecaster
+  labels:
+    app: ui
+    tier: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ui
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: ui
+        tier: frontend
+    spec:
+      containers:
+      - name: ui
+        image: ui
+        ports:
+        - name: http-server
+          containerPort: 8080
+        env:
+        - name: HOST_NAME
+          value: ui
+        - name: eureka.client.service-url.defaultZone
+          value: http://discovery-service:8761/eureka
