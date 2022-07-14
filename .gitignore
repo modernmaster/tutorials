@@ -103,3 +103,4 @@ typings/
 
 cypress/videos
 cypress/screenshots
+*.gradle
