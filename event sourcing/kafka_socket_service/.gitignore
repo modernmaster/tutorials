@@ -1,0 +1,10 @@
+node_modules
+.idea
+coverage
+package-lock.json
+/.nyc_output
+/dist
+/combined.log
+/error.log
+/kss-combined.json
+/VERSION

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Socket Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"
+            type="application/javascript"></script>
+</head>
+<body>
+<script>
+    const socket = io('localhost:3012');
+    // const socket = io('https://kss-stage.isoftbet.com:3013');
+    socket.emit('register', {topic: "gap_generic_wallet_message", playerID: "Ashden", lid: 134, operator: "0", skinID: 200249});
+    socket.on('feed', function (data) {
+        console.log(JSON.stringify(data));
+    });
+    function send() {
+        socket.emit("reply", {
+            "topic": "widget_wallet_message_confirmation",
+            "message": {
+                "widget_wallet_message_confirmation": {
+                    "id": "1",
+                    "player_id": "Ashden",
+                    "licensee_id": 129,
+                    "operator_name": "0",
+                    "server_id": 13,
+                    "skin_id": 906340,
+                    "session_id": "sessionIDValue",
+                    "selection": "okButton"
+                }
+            }
+        })
+    }
+</script>
+<input type="button" onclick="send()" value="Send reply">
+</body>
+</html>

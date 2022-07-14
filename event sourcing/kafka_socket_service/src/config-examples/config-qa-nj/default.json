@@ -1,0 +1,15 @@
+{
+  "kafkaBrokers": ["kafka.isoftbet.com:9092"],
+  "kafkaGroup": "KSSGroupQANJ",
+  "socketPort": 3012,
+  "socketUsesHTTPS": true,
+  "pathToKey": "certificate/isoftbet.com.key",
+  "pathToCert": "certificate/isoftbet.com.crt",
+  "sentryDSN": "https://a25293b69b1d4979995ecb602b5f61d6@o331068.ingest.sentry.io/5210873",
+  "oidcTokenHost": "iam.qa.isoftbet.com",
+  "oidcTokenPath": "/api/v1/oidc/token",
+  "kafkaProducerAPIHost": "rest-kafka-qa.isoftbet.com",
+  "kafkaProducerAPIPath": "/v1/message",
+  "clientID": "ad24cf20-8d2f-0138-f6d0-029b2957885837809",
+  "clientSecret": "0c9706ea0c070c23dbedbf47e2102b579582cc41168cbeb24b62bf9107c5adb8"
+}
