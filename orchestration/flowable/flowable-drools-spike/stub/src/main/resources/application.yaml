@@ -1,0 +1,10 @@
+server:
+  port: 8081
+
+spring:
+  mvc:
+    log-request-details: true
+
+logging:
+  level:
+    root: INFO

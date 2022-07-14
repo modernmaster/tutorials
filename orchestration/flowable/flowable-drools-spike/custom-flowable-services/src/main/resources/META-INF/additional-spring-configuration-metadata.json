@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "isb.secret",
+      "type": "java.lang.String",
+      "description": "Description for isb.secret."
+  }
+] }

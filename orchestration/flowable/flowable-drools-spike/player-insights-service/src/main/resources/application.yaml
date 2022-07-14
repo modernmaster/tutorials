@@ -1,0 +1,25 @@
+server:
+  port: 8084
+spring:
+  profiles:
+    active: local
+  application:
+    name: Service
+
+#  datasource:
+#    driverClassName: net.snowflake.client.jdbc.SnowflakeDriver
+#    url: jdbc:snowflake://pr28215.eu-central-1.snowflakecomputing.com/
+#    username: GAPREADER
+#    password: 3aREPTFm2bpGHtuq
+#  #  flyway:
+#  #    locations: classpath:db/migration/common,classpath:db/migration/snowflake
+#  jpa:
+#    properties:
+#      hibernate:
+#        batch_size: 10
+#        dialect: isb.EmptyDialect
+#        order_inserts: true
+
+
+#  spring.datasource.url=jdbc:snowflake://${snowflake.account}.snowflakecomputing.com/?warehouse=${snowflake.warehouse}&db=${snowflake.database.name}&schema=${snowflake.schema}&TIMEZONE=${snowflake.timezone:UTC}&CLIENT_RESULT_COLUMN_CASE_INSENSITIVE=true&CLIENT_TIMESTAMP_TYPE_MAPPING=TIMESTAMP_NTZ
+

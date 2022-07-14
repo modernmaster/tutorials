@@ -1,0 +1,12 @@
+logging:
+  level:
+    root: INFO
+message:
+  topic:
+    name: testTopicOutput
+server:
+  port: 8085
+spring:
+  kafka:
+    consumer:
+      bootstrap-servers: kafka.local:9092
