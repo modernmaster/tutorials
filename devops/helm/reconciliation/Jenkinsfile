@@ -1,0 +1,86 @@
+//==================== VARIABLES ===========================
+def sPrimaryBranch    = 'main'
+def sPrimaryChartRepo = 's3://helm.isoftbet.com/charts'
+def sWebHookUrl       = 'https://isbromsrl.webhook.office.com/webhookb2/e823c893-1cd6-4691-8d1b-05e6952db295@41b2d3af-531b-4570-9e77-df8dd04063ad/IncomingWebhook/71f0f452b2d24cc0915c528877c38928/cd4f06e5-fd1a-4671-adee-f37f253a782e'
+
+//====================== BUILD =============================
+
+pipeline {
+  agent {
+    label 'DEPLOY01-PROD-TIMI'
+  }
+  stages {
+    stage ('Checkout'){
+      steps{
+        timestamps {
+          retry(3) {
+            checkout scm
+          }
+        }
+      }
+    }
+    stage ('Bump Version') {
+      steps{
+        timestamps {
+          withCredentials([usernameColonPassword(credentialsId: 'jenkins_git', variable: 'JenkinsCreds')]) {
+            sh'''
+              git remote set-url origin https://${JenkinsCreds}@$(git remote -v| grep fetch | awk '{sub("https://","",$2);print $2}')
+            '''
+          }
+          sh '''
+            curl -LO http://18.192.26.89/repo/isb-semantic-versioning/docker_semver.sh
+            chmod 755 docker_semver.sh
+            ./docker_semver.sh --bump-version patch
+          '''
+        }
+      }
+    }
+    stage ('Template and Build Chart') {
+      steps{
+        timestamps {
+          sh'''
+            helm template .
+            ./helmrepo.sh --bundle
+          '''
+        }
+      }
+    }
+    stage ('Publish Chart And Push tags to Git') {
+      steps{
+        timestamps {
+          script {
+            if (env.BRANCH_NAME == sPrimaryBranch) {
+              withAWS(credentials: 'aws-credentials-core', region: 'eu-central-1') {
+                withEnv([
+                  "S3_BUCKET_URL=${ sPrimaryChartRepo }",
+                ]) {
+                  sh '''
+                    ./helmrepo.sh --push
+                    ./docker_semver.sh --push
+                  '''
+                }
+              }
+            } else {
+              archiveArtifacts artifacts: '*.tgz', fingerprint: true
+            }
+          }
+        }
+      }
+    }
+    stage ('Notify Success'){
+      steps{
+        office365ConnectorSend message:"Reconciliation Helm Chart buils and publish Successful  Jenkins - ${JOB_NAME} with #Build ${env.BUILD_ID} - ${BUILD_URL}", status:"SUCCESS",  webhookUrl: sWebHookUrl, color:"05b222"
+      }
+    }
+  }
+  post {
+    failure{
+      node('DEPLOY-QA-CLOUD'){
+        office365ConnectorSend message:"Jenkins - ${JOB_NAME} with #Deploy/QA ${env.BUILD_ID} - ${BUILD_URL}", status:"FAILED",  webhookUrl:"${env.WEBHOOK}", color:"d00000"
+      }
+    }
+    always {
+      cleanWs()
+    }
+  }
+}

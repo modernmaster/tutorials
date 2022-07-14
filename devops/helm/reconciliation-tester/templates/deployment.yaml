@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "reconciliation-tester.fullname" . }}
+  labels:
+    {{- include "reconciliation-tester.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "reconciliation-tester.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+      {{- if .Values.app.vaultSecrets.kafka }}
+        {{- include "reconciliation-tester.vaultKafka" $ | nindent 8 -}}
+      {{- end }}
+      {{- with .podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "reconciliation-tester.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "reconciliation-tester.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ include "reconciliation-tester.name" $ }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          {{- with .Values.image }}
+          image: {{ printf "%s%s:%s" .repository .container ( .tag | default $.Chart.AppVersion ) | quote }}
+          imagePullPolicy: {{ .pullPolicy }}
+          {{- end }}
+          env:
+          {{- if .Values.app.vaultSecrets.kafka }}
+            - name: KAFKA_VAULT_PATH
+              value: "/vault/secrets/kafka-cfg.json"
+          {{- end }}
+          {{- range $key, $val := .Values.app.env }}
+            - name:   {{ $key | quote }}
+              value:  {{ $val | quote }}
+          {{- end }}
+          {{- if .Values.app.tplEnv }}
+            {{- tpl (toYaml .Values.app.tplEnv) $ | nindent 12 }}
+          {{- end }}
+          ports:
+            {{- with .Values.service.port }}
+            - name:          {{ .name   }}
+              containerPort: {{ .number }}
+              protocol: TCP
+            {{- end }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.app.liveness.path }}
+              port: {{ .Values.service.port.name }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.app.readiness.path }}
+              port: {{ .Values.service.port.name }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- if .Values.app.kafkaQAhostsHack }}
+      hostAliases:
+        - hostnames:
+          - kafka.isoftbet.com
+          ip: 92.83.184.116
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
