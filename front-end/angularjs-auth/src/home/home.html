@@ -1,0 +1,14 @@
+<div ng-include="navBar"></div>
+<ul class="nav" ng-if="links">
+  <li class="nav-item" ng-repeat="link in links">
+    <a class="nav-link" ui-sref-active="active" ng-href="{{link.link}}">{{link.title | titlecase}}</a>
+  </li>
+</ul>
+<main role="main" class="container pt-5" ui-view>
+  <div class="starter-template">
+    <h1>Bootstrap starter template</h1>
+    <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+  </div>
+  <div consumer-table data="tableData"></div>
+
+</main><!-- /.container -->

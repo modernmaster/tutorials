@@ -1,0 +1,12 @@
+<table ng-if="rows" class="table table-hover">
+  <thead class="thead-light">
+    <tr>
+      <th ng-repeat="heading in headers track by $index" ng-bind="heading"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="row in rows">
+      <td ng-repeat="cell in row track by $index" ng-bind="cell"></td>
+    </tr>
+  </tbody>
+</table>
